@@ -2,10 +2,10 @@
 
 class DBOperations{
 
-	 private $host = 'your_host';
-	 private $user = 'your_user_name';
-	 private $db = 'your_database';
-	 private $pass = 'your_password';
+	 private $host = '127.0.0.1';
+	 private $user = 'root';
+	 private $db = 'flutterclient';
+	 private $pass = '';
 	 private $conn;
 
 public function __construct() {
