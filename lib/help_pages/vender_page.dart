@@ -36,7 +36,7 @@ Widget _buildSuggestions(BuildContext context)
     return ListTile(
       onTap: () => _onTapItem(context, _suggestions[position]),
       title: Text(
-        pair.venderName,
+        pair.infoName,
         style: _biggerFont,
       ),
     );
@@ -65,7 +65,7 @@ Widget buildHousePage(BuildContext context,VerderInfo item) {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[ 
             Container( width: 150, color: Colors.red,child: _buildSuggestions(context)),
-            Expanded(child:Container(color: Colors.blue,child: buildHousePage(context,InfoManager.instance.currentVerder),))],
+            Expanded(child:Container(child: buildHousePage(context,InfoManager.instance.currentVerder),))],
             ));    
   }
 }

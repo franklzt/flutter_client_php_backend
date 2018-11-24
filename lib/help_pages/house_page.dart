@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_client_php_backend/models/DataInfo.dart';
+import 'package:flutter_client_php_backend/help_pages/webview_page.dart';
 
 class HousePage extends StatefulWidget {
  
@@ -28,14 +29,23 @@ Widget _buildSuggestions() {
   Widget _buildRow(HouseInfo pair) {
     return ListTile(
       title: Text(
-        pair.HouseName,
+        pair.infoName,
         style: _biggerFont,
       ),
     );
   }
 
+
+
+  Widget _buildWebView()
+  {
+    return WebViewPage();
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    return _buildWebView();
     return _buildSuggestions();
   }
 }

@@ -22,6 +22,7 @@ import 'package:flutter_client_php_backend/pages/home_page.dart';
 import 'package:flutter_client_php_backend/pages/login_page.dart';
 import 'package:flutter_client_php_backend/utils/app_shared_preferences.dart';
 import 'package:flutter_client_php_backend/pages/product_page.dart';
+import 'package:flutter_client_php_backend/help_pages/webview_page.dart';
 
 class SplashPage extends StatefulWidget {
   @override
