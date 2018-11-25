@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_client_php_backend/models/DataInfo.dart';
 import 'package:flutter_inappbrowser/flutter_inappbrowser.dart';
 
 
 
 class WebViewPage extends StatefulWidget {
+  final String _initURL;
+  String get initURL =>_initURL;
+
+  WebViewPage(this._initURL);
+
   @override
   _WebViewPageState createState() => _WebViewPageState();
 }
 
-class _WebViewPageState extends State<WebViewPage> {
-
-  var _suggestions = <HouseInfo>[];
-   var _biggerFont = const TextStyle(fontSize: 18.0);
-
+class _WebViewPageState extends State<WebViewPage> 
+{
   InAppWebViewController webView;
   String url = "";
   double progress = 0;
@@ -27,32 +28,6 @@ class _WebViewPageState extends State<WebViewPage> {
   void dispose() {
     super.dispose();
   }
-
-
-Widget _buildSuggestions() {
-  _suggestions.clear();
-  _suggestions.addAll(InfoManager.instance.getHouseInfoByVender(InfoManager.instance.currentVerder));
-    return ListView.builder(
-      itemCount: _suggestions.length * 2,
-      padding: const EdgeInsets.all(16.0),      
-      itemBuilder: (context, i) {
-        if (i.isOdd) return Divider();
-        final index = i ~/ 2;
-        return _buildRow(_suggestions[index]);
-      }
-    );
-  }
-
-  Widget _buildRow(HouseInfo pair) {
-    return ListTile(
-      title: Text(
-        pair.infoName,
-        style: _biggerFont,
-      ),
-    );
-  }
-
-
     Widget buildWebView()
     {
       return Container(
@@ -61,7 +36,7 @@ Widget _buildSuggestions() {
                     border: Border.all(color: Colors.pinkAccent)
                   ),
           child:  InAppWebView(
-          initialUrl: "https:www.baidu.com",
+          initialUrl: widget._initURL,
           initialHeaders: {
 
           },
@@ -70,6 +45,7 @@ Widget _buildSuggestions() {
           },
           onWebViewCreated: (InAppWebViewController controller) {
             webView = controller;
+            webView.loadUrl(widget._initURL);
           },
           onLoadStart: (InAppWebViewController controller, String url) {
             print("started $url");
@@ -88,15 +64,8 @@ Widget _buildSuggestions() {
 
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.all(1.0),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.pinkAccent)
-                  ),
-          child: Column(children: <Widget>[
-             Expanded(child: buildWebView()),
-             Expanded(child:_buildSuggestions())],)
-        ) ;
+  Widget build(BuildContext context) 
+  {  
+    return buildWebView();
   }
 }

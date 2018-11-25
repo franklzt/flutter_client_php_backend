@@ -14,11 +14,11 @@
  * limitations under the License.
  *
  */
-
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_client_php_backend/pages/splash_page.dart';
 
-void main() => runApp(new FlutterClientPHPBackendApp());
+Future   main() async {runApp(new FlutterClientPHPBackendApp());}
 
 class FlutterClientPHPBackendApp extends StatelessWidget {
   @override

@@ -87,6 +87,21 @@ class CreateList<T>
   {
     return null;
   }
+
+  int _currentIndex = 0;
+  int get currentIndex =>_currentIndex;
+  T getCurrentItem()
+   {
+     return dataList[_currentIndex];
+   }
+
+  void setCurrentIndex(int index)
+  {
+    if(index >= 0 && index < dataList.length)
+    {
+      _currentIndex = index;
+    }
+  }
 }
 
 
@@ -103,7 +118,8 @@ class HouseInfoList extends CreateList<HouseInfo>
 {
   @override
   HouseInfo creatorOther(int index,int otherCount) {
-      return HouseInfo(index, "House" + index.toString(),otherCount);
+    String numberStr = (index + otherCount + 1).toString();
+    return HouseInfo(index, "House" + numberStr,otherCount);
     }
 }
 
@@ -111,7 +127,9 @@ class RoomLocateInfoList extends CreateList<RoomLocateInfo>
 {
  @override
   RoomLocateInfo creatorOther(int index,int otherCount) {
-      return RoomLocateInfo(index, "RoomLocate" + index.toString(),"url",otherCount);
+        String numberStr = (index + otherCount + 1).toString();
+
+      return RoomLocateInfo(index, "RoomLocate" + numberStr,"url",otherCount);
     }
 }
 
@@ -119,7 +137,8 @@ class RoomDetailInfoList extends CreateList<RoomDetailInfo>
 {
  @override
   RoomDetailInfo creatorOther(int index,int otherCount) {
-      return RoomDetailInfo(index, "RoomDetails" + index.toString(),otherCount,"url","iconName","title","des");
+    String numberStr = (index + otherCount + 1).toString();
+      return RoomDetailInfo(index, "RoomDetails" + numberStr,otherCount,"url","iconName","Details " + numberStr + MockConstData.title,MockConstData.des);
     }
 }
 
@@ -140,9 +159,14 @@ class FilterList<T extends BaseInfo>
    }   
 }
 
+typedef SelectTabIndex = void Function(int index);
 
-
-
+class MockConstData
+{
+ static const  String title = "The yellow and black striped banner";
+ static const String des = '''When the contents of a Column exceed the amount of space available, the Column overflows, and the contents are clipped. In debug mode, a yellow and black striped bar is rendered at the overflowing edge to indicate the problem, and a message is printed below the Column saying how much overflow was detected.
+  The usual solution is to use a ListView rather than a Column, to enable the contents to scroll when vertical space is limited.''';
+}
 
 class InfoManager
 {
@@ -154,66 +178,53 @@ class InfoManager
      _instance.createList();
    }
     return _instance;
-
   }
 
-  VerderInfoList verderInfoList = VerderInfoList();
-  HouseInfoList houseInfoList = HouseInfoList();
-  RoomLocateInfoList roomLocateInfoList = RoomLocateInfoList();
-  RoomDetailInfoList roomDetailInfoList = RoomDetailInfoList();
+  VerderInfoList _verderInfoList = VerderInfoList();
+  HouseInfoList _houseInfoList = HouseInfoList();
+  RoomLocateInfoList _roomLocateInfoList = RoomLocateInfoList();
+  RoomDetailInfoList _roomDetailInfoList = RoomDetailInfoList();
+
+  VerderInfoList get verderInfoList =>_verderInfoList;// VerderInfoList();
+  HouseInfoList get houseInfoList => _houseInfoList;
+  RoomLocateInfoList get  roomLocateInfoList => _roomLocateInfoList;
+  RoomDetailInfoList get roomDetailInfoList => _roomDetailInfoList;
+
+  int _productPageIndex = 0;
+  int get productPageIndex =>_productPageIndex;
+  void setProductPageIndex(int index)
+  {
+    _productPageIndex = index;
+  }
+
+  SelectTabIndex onSelectTapIndex;
+
+  void selectTapIndex(int index)
+  {
+    onSelectTapIndex(index);
+  }
 
 
   void createList()
   {
-    verderInfoList.createList(10);
-    houseInfoList.createListOnOther(10, 3);
-    roomLocateInfoList.createListOnOther(10, 3);
-    roomDetailInfoList.createListOnOther(10, 3);
+    _verderInfoList.createList(10);
+    _houseInfoList.createListOnOther(30, 3);
+    _roomLocateInfoList.createListOnOther(90, 3);
+    _roomDetailInfoList.createListOnOther(270, 3);
   }
 
+  FilterList<HouseInfo> _houseFliter = FilterList<HouseInfo>();
+  FilterList<RoomLocateInfo> _roomLocateFliter = FilterList<RoomLocateInfo>();
+  FilterList<RoomDetailInfo> _roomDetailFliter = FilterList<RoomDetailInfo>();
 
-  List<VerderInfo> _verderInfos = List<VerderInfo>();
-  List<HouseInfo> _houseInfos = List<HouseInfo>();
-  List<VerderInfo> getVenderList()
-  {
-    if(_verderInfos.length <= 0)
-    {
-      for (var i = 0; i < 10; i++) {
-        VerderInfo tempVender = VerderInfo(i, "Verder" + i.toString());
-        _verderInfos.add(tempVender);
-      }
-    }
-    return _verderInfos;
-  }
+  Iterable<HouseInfo> get filteredHouseInfo =>_houseFliter.filterList(_verderInfoList.getCurrentItem()._infoID, _houseInfoList.dataList);
+  Iterable<RoomLocateInfo> get filteredRoomLocateInfo =>_roomLocateFliter.filterList(_houseInfoList.getCurrentItem()._infoID, _roomLocateInfoList.dataList);
+  Iterable<RoomDetailInfo> get filteredRommDetailsInfo =>_roomDetailFliter.filterList(_roomLocateInfoList.getCurrentItem()._infoID, _roomDetailInfoList.dataList);
 
-  VerderInfo  _currentVerder;
-  VerderInfo get currentVerder => _currentVerder;
-  void setCurrentVerder(VerderInfo value)  => _currentVerder = value;
+  int _detailIndex = 0;
+  void setDetailIndex(int index){_detailIndex = index;}
+  RoomDetailInfo get getCurrentRoomDetailsInfo =>filteredRommDetailsInfo.elementAt(_detailIndex);
 
-  List<HouseInfo> getHouseList()
-  {
-    if(_houseInfos.length <= 0)
-    {
-      List<VerderInfo> tempVenderInfo = getVenderList();
-      for (var i = 0; i < tempVenderInfo.length; i++) {
-       for (var j = 0; j < 3; j++) {
-         HouseInfo houseInfo = HouseInfo(i, tempVenderInfo[i]._infoName + " House " + j.toString(),tempVenderInfo[i]._infoID,);
-         _houseInfos.add(houseInfo);
-       }
-     }
-    }
-    return _houseInfos;
-  }
+  
 
-  List<HouseInfo> getHouseInfoByVender(VerderInfo vender)
-  {    
-    List<HouseInfo> tempHouseInfo = List<HouseInfo>();
-    for (var i = 0; i < _houseInfos.length; i++) {
-      if(vender._infoID == _houseInfos[i]._infoID)
-      {
-        tempHouseInfo.add(_houseInfos[i]);
-      }
-    }
-    return tempHouseInfo;
-  }
 }
