@@ -27,16 +27,13 @@ import 'package:http/http.dart' as http;
 
 ///////////////////////////////////////////////////////////////////////////////
 Future<EventObject> loginUser(String emailId, String password) async {
-  ApiRequest apiRequest = new ApiRequest();
   User user = new User(email: emailId, password: password);
 
-  apiRequest.operation = APIOperations.LOGIN;
-  apiRequest.user = user;
-  
+  ApiRequest apiRequest = ApiRequest(operation: APIOperations.LOGIN,user: user);
   try {
     final encoding = APIConstants.OCTET_STREAM_ENCODING;
     final response = await http.post(APIConstants.API_BASE_URL,
-        body: json.encode(apiRequest.user),
+        body: json.encode(apiRequest.toJson()),
         encoding: Encoding.getByName(encoding));
     if (response != null) {
       if (response.statusCode == APIResponseCode.SC_OK &&
@@ -63,17 +60,13 @@ Future<EventObject> loginUser(String emailId, String password) async {
 
 ///////////////////////////////////////////////////////////////////////////////
 Future<EventObject> registerUser(
-    String name, String emailId, String password) async {
-  ApiRequest apiRequest = new ApiRequest();
+  String name, String emailId, String password) async {
   User user = new User(name: name, email: emailId, password: password);
-
-  apiRequest.operation = APIOperations.REGISTER;
-  apiRequest.user = user;
-
+  ApiRequest apiRequest = new ApiRequest(operation: APIOperations.REGISTER,user: user);
   try {
     final encoding = APIConstants.OCTET_STREAM_ENCODING;
     final response = await http.post(APIConstants.API_BASE_URL,
-        body: json.encode(apiRequest.user),
+        body: json.encode(apiRequest.toJson()),
         encoding: Encoding.getByName(encoding));
     if (response != null) {
       if (response.statusCode == APIResponseCode.SC_OK &&
@@ -104,17 +97,15 @@ Future<EventObject> registerUser(
 ///////////////////////////////////////////////////////////////////////////////
 Future<EventObject> changePassword(
     String emailId, String oldPassword, String newPassword) async {
-  ApiRequest apiRequest = new ApiRequest();
   User user = new User(
       email: emailId, old_password: oldPassword, new_password: newPassword);
 
-  apiRequest.operation = APIOperations.CHANGE_PASSWORD;
-  apiRequest.user = user;
+  ApiRequest apiRequest = new ApiRequest(operation: APIOperations.CHANGE_PASSWORD,user: user);
 
   try {
     final encoding = APIConstants.OCTET_STREAM_ENCODING;
     final response = await http.post(APIConstants.API_BASE_URL,
-        body: json.encode(apiRequest.user),
+        body: json.encode(apiRequest.toJson()),
         encoding: Encoding.getByName(encoding));
     if (response != null) {
       if (response.statusCode == APIResponseCode.SC_OK &&

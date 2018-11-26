@@ -20,6 +20,7 @@ import 'package:flutter_client_php_backend/customviews/progress_dialog.dart';
 import 'package:flutter_client_php_backend/futures/app_futures.dart';
 import 'package:flutter_client_php_backend/models/base/EventObject.dart';
 import 'package:flutter_client_php_backend/pages/home_page.dart';
+import 'package:flutter_client_php_backend/pages/product_page.dart';
 import 'package:flutter_client_php_backend/pages/register_page.dart';
 import 'package:flutter_client_php_backend/utils/app_shared_preferences.dart';
 import 'package:flutter_client_php_backend/utils/constants.dart';
@@ -174,6 +175,9 @@ class LoginPageState extends State<LoginPage> {
 
 //------------------------------------------------------------------------------
   void _loginButtonAction() {
+    
+    _loginUser("test@qq.com", "123456");
+    return;
     if (emailController.text == "") {
       globalKey.currentState.showSnackBar(new SnackBar(
         content: new Text(SnackBarText.ENTER_EMAIL),
@@ -189,6 +193,7 @@ class LoginPageState extends State<LoginPage> {
     }
     FocusScope.of(context).requestFocus(new FocusNode());
     progressDialog.showProgress();
+     
     _loginUser(emailController.text, passwordController.text);
   }
 
@@ -236,7 +241,7 @@ class LoginPageState extends State<LoginPage> {
   void _goToHomeScreen() {
     Navigator.pushReplacement(
       context,
-      new MaterialPageRoute(builder: (context) => new HomePage()),
+      new MaterialPageRoute(builder: (context) => ProductPage()),
     );
   }
 

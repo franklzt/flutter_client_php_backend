@@ -28,5 +28,7 @@ class ApiRequest extends Object  {
 
   factory ApiRequest.fromJson(Map<String, dynamic> json) =>
       _$ApiRequestFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ApiRequestToJson(this);    
   
 }

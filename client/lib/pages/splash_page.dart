@@ -79,12 +79,12 @@ class SplashPageState extends State<SplashPage> {
         if (isLoggedIn != null && isLoggedIn) {
           Navigator.pushReplacement(
             context,
-            new MaterialPageRoute(builder: (context) => new HomePage()),
+            new MaterialPageRoute(builder: (context) => HomePage()),
           );
         } else {
           Navigator.pushReplacement(
             context,
-            new MaterialPageRoute(builder: (context) => new ProductFuturePage(post: fetchPost())),
+            new MaterialPageRoute(builder: (context) => LoginPage()),
           );
         }
       });

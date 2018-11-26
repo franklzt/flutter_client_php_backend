@@ -36,4 +36,5 @@ class UserInfo extends Object {
       });
 
   factory UserInfo.fromJson(Map<String, dynamic> json) => _$UserInfoFromJson(json);
+  Map<String, dynamic> toJson() => _$UserInfoToJson(this);    
 }

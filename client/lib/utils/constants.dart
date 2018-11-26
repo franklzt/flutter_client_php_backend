@@ -18,7 +18,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 class APIConstants {
   static const String OCTET_STREAM_ENCODING = "application/octet-stream";
-  static const String API_BASE_URL = "http://127.0.0.1/flutter_client_php_backend/phpbackend/index.php";
+  static const String API_BASE_URL = "http://192.168.129.48/flutter_client_php_backend/phpbackend/index.php";
 }
 
 ///////////////////////////////////////////////////////////////////////////////
