@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_client_php_backend/models/DataInfo.dart';
+import 'package:flutter_client_php_backend/manager/DataInfo.dart';
 import 'package:flutter_client_php_backend/help_pages/vender_page.dart';
 import 'package:flutter_client_php_backend/help_pages/house_page.dart';
 import 'package:flutter_client_php_backend/help_pages/locate_page.dart';
@@ -46,6 +46,7 @@ Widget _buildTitle()
           fit: BoxFit.scaleDown,
         )),)],);
 }
+
 
 
     @override

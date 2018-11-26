@@ -17,24 +17,23 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
-part 'User.g.dart';
+part 'UserInfo.g.dart';
 
 @JsonSerializable()
-class User extends Object with _$UserSerializerMixin {
-  String name;
-  String email;
-  String unique_id;
-  String password;
-  String old_password;
-  String new_password;
+class UserInfo extends Object {
+  String dataId;
+  String userIcon;
+  String userName;
+  String department;
+  String empolyeeID;
 
-  User(
-      {this.name,
-      this.email,
-      this.unique_id,
-      this.password,
-      this.old_password,
-      this.new_password});
+  UserInfo(
+      {this.dataId,
+      this.userIcon,
+      this.userName,
+      this.department,
+      this.empolyeeID,
+      });
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory UserInfo.fromJson(Map<String, dynamic> json) => _$UserInfoFromJson(json);
 }

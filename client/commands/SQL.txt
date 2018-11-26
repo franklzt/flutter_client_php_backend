@@ -1,0 +1,8 @@
+INSERT INTO `admin`(`id`, `name`, `pwd`) VALUES (1,'admin','123456')
+UPDATE `admin` SET `name`='admin',`pwd`= '55555' WHERE id=5bf787c62224b2.55568314
+select * from admin
+select * from admin where id=1
+select * from admin where id<3
+delete from `admin` where id=4
+
+

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_client_php_backend/models/DataInfo.dart';
+import 'package:flutter_client_php_backend/manager/DataInfo.dart';
 
 class HousePage extends StatefulWidget {
   @override

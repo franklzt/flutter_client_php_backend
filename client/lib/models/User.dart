@@ -15,19 +15,26 @@
  *
  */
 
-import 'package:flutter_client_php_backend/models/User.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'ApiResponse.g.dart';
+part 'User.g.dart';
 
 @JsonSerializable()
-class ApiResponse extends Object with _$ApiResponseSerializerMixin {
-  String result;
-  String message;
-  User user;
+class User extends Object  {
+  String name;
+  String email;
+  String unique_id;
+  String password;
+  String old_password;
+  String new_password;
 
-  ApiResponse({this.result, this.message, this.user});
+  User(
+      {this.name,
+      this.email,
+      this.unique_id,
+      this.password,
+      this.old_password,
+      this.new_password});
 
-  factory ApiResponse.fromJson(Map<String, dynamic> json) =>
-      _$ApiResponseFromJson(json);
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 }

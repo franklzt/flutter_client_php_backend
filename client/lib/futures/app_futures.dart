@@ -32,11 +32,11 @@ Future<EventObject> loginUser(String emailId, String password) async {
 
   apiRequest.operation = APIOperations.LOGIN;
   apiRequest.user = user;
-
+  
   try {
     final encoding = APIConstants.OCTET_STREAM_ENCODING;
     final response = await http.post(APIConstants.API_BASE_URL,
-        body: json.encode(apiRequest.toJson()),
+        body: json.encode(apiRequest.user),
         encoding: Encoding.getByName(encoding));
     if (response != null) {
       if (response.statusCode == APIResponseCode.SC_OK &&
@@ -73,7 +73,7 @@ Future<EventObject> registerUser(
   try {
     final encoding = APIConstants.OCTET_STREAM_ENCODING;
     final response = await http.post(APIConstants.API_BASE_URL,
-        body: json.encode(apiRequest.toJson()),
+        body: json.encode(apiRequest.user),
         encoding: Encoding.getByName(encoding));
     if (response != null) {
       if (response.statusCode == APIResponseCode.SC_OK &&
@@ -114,7 +114,7 @@ Future<EventObject> changePassword(
   try {
     final encoding = APIConstants.OCTET_STREAM_ENCODING;
     final response = await http.post(APIConstants.API_BASE_URL,
-        body: json.encode(apiRequest.toJson()),
+        body: json.encode(apiRequest.user),
         encoding: Encoding.getByName(encoding));
     if (response != null) {
       if (response.statusCode == APIResponseCode.SC_OK &&

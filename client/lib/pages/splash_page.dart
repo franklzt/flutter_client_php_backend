@@ -18,6 +18,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_client_php_backend/futures/product_futures.dart';
 import 'package:flutter_client_php_backend/pages/home_page.dart';
 import 'package:flutter_client_php_backend/pages/login_page.dart';
 import 'package:flutter_client_php_backend/utils/app_shared_preferences.dart';
@@ -83,7 +84,7 @@ class SplashPageState extends State<SplashPage> {
         } else {
           Navigator.pushReplacement(
             context,
-            new MaterialPageRoute(builder: (context) => new ProductPage()),
+            new MaterialPageRoute(builder: (context) => new ProductFuturePage(post: fetchPost())),
           );
         }
       });

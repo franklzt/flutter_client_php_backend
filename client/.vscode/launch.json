@@ -8,6 +8,13 @@
             "name": "Flutter",
             "request": "launch",
             "type": "dart"
+
+        },
+        {
+            "name": "php",
+            "request": "launch",
+            "type": "php"
+            
         }
     ]
 }
