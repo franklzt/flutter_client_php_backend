@@ -17,24 +17,17 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
-part 'UserInfo.g.dart';
+part 'UserInfoRequest.g.dart';
 
 @JsonSerializable()
-class UserInfo extends Object {
+class UserInfoRequest extends Object {
   String data_id;
-  String user_icon;
-  String user_name;
-  String department;
-  String employee_id;
+ 
 
-  UserInfo(
+  UserInfoRequest(
       {this.data_id,
-      this.user_icon,
-      this.user_name,
-      this.department,
-      this.employee_id,
       });
 
-  factory UserInfo.fromJson(Map<String, dynamic> json) => _$UserInfoFromJson(json);
-  Map<String, dynamic> toJson() => _$UserInfoToJson(this);    
+  factory UserInfoRequest.fromJson(Map<String, dynamic> json) => _$UserInfoRequestFromJson(json);
+  Map<String, dynamic> toJson() => _$UserInfoRequestToJson(this);    
 }

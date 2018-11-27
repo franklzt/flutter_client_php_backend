@@ -21,6 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_client_php_backend/futures/product_futures.dart';
 import 'package:flutter_client_php_backend/pages/home_page.dart';
 import 'package:flutter_client_php_backend/pages/login_page.dart';
+import 'package:flutter_client_php_backend/pages/php_test.dart';
 import 'package:flutter_client_php_backend/utils/app_shared_preferences.dart';
 import 'package:flutter_client_php_backend/pages/product_page.dart';
 import 'package:flutter_client_php_backend/help_pages/webview_page.dart';

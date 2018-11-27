@@ -28,7 +28,6 @@ import 'package:http/http.dart' as http;
 ///////////////////////////////////////////////////////////////////////////////
 Future<EventObject> loginUser(String emailId, String password) async {
   User user = new User(email: emailId, password: password);
-
   ApiRequest apiRequest = ApiRequest(operation: APIOperations.LOGIN,user: user);
   try {
     final encoding = APIConstants.OCTET_STREAM_ENCODING;

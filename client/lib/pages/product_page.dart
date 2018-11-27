@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_client_php_backend/manager/DataInfo.dart';
 import 'package:flutter_client_php_backend/help_pages/vender_page.dart';
@@ -5,6 +7,13 @@ import 'package:flutter_client_php_backend/help_pages/house_page.dart';
 import 'package:flutter_client_php_backend/help_pages/locate_page.dart';
 import 'package:flutter_client_php_backend/help_pages/room_page.dart';
 import 'package:flutter_client_php_backend/help_pages/roomview_page.dart';
+import 'package:flutter_client_php_backend/models/User.dart';
+import 'package:flutter_client_php_backend/models/UserInfo.dart';
+import 'package:flutter_client_php_backend/models/UserInfoRequest.dart';
+import 'package:flutter_client_php_backend/models/base/EventObject.dart';
+import 'package:flutter_client_php_backend/utils/app_shared_preferences.dart';
+import 'package:flutter_client_php_backend/futures/userInfo_futures.dart';
+
 
 
 class ProductPage extends StatefulWidget {
@@ -15,11 +24,49 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> 
 {
 
+  UserInfo userInfo;
+//------------------------------------------------------------------------------
+
+  @override
+  Future<void> didChangeDependencies() async {
+    super.didChangeDependencies();
+    if (userInfo == null) {
+      await initUserProfile();
+    }
+  }
+
+//------------------------------------------------------------------------------
+
+  Future<void> initUserProfile() async {
+   await AppSharedPreferences.getUserProfile().then(
+      (loginUser){
+          UserInfoRequest userInfoRequest = UserInfoRequest(data_id:loginUser.unique_id);
+          getUserInfo(userInfoRequest).then((result){
+          updateUserInfo(result.object);
+         });
+        }
+        );        
+  }
+
+//------------------------------------------------------------------------------
+
     _ProductPageState()
     {
         InfoManager.instance.onSelectTapIndex = onTabTapped;
     }
   
+    String assetBasePath = "http://www.alnytech.com/";
+    void updateUserInfo(UserInfo newUserInfo)
+    {
+      setState(() {
+               if(newUserInfo != null)
+              {
+                _userName = newUserInfo.user_name;
+                _userIconURL = assetBasePath +  newUserInfo.user_icon;
+              }
+            });
+     
+    }
 
    String _title = "Product";
    String _userName = "UserName";
@@ -40,13 +87,17 @@ Widget _buildTitle()
 {
   return Row(children: <Widget>[
   Text(_title), 
-  Expanded(flex: 3,child: Text(_userName,textAlign: TextAlign.right,),),
+  Expanded(flex: 3,child: FlatButton(onPressed: getData, child:Text(_userName,textAlign: TextAlign.right,)),),
   Expanded(flex: 3, child: Padding(padding: EdgeInsets.all(5),child: Image.network(
           _userIconURL,
           fit: BoxFit.scaleDown,
         )),)],);
 }
 
+void getData()
+{
+  initUserProfile();
+}
 
 
     @override

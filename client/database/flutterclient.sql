@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 26, 2018 at 06:10 AM
+-- Generation Time: Nov 27, 2018 at 10:45 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 5.6.38
 
@@ -21,6 +21,26 @@ SET time_zone = "+00:00";
 --
 -- Database: `flutterclient`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `department_info`
+--
+
+CREATE TABLE `department_info` (
+  `data_id` int(11) NOT NULL,
+  `department_name` tinytext COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `department_info`
+--
+
+INSERT INTO `department_info` (`data_id`, `department_name`) VALUES
+(1001, '销售'),
+(1002, '人事'),
+(1003, '技术');
 
 -- --------------------------------------------------------
 

@@ -160,4 +160,28 @@ public function getMsgInvalidEmail(){
 
 }
 
+
+public function getUserInfo($userInfoRequest) 
+{
+  $db = $this -> db;
+  $result =  $db -> getUserInfo($userInfoRequest);
+  if(!$result) {
+
+        $response["result"] = "failure";
+        $response["message"] = "UserInfo Do not exist";
+        $response["userinfo"] = "no userdata";
+        return json_encode($response);
+
+       } else {
+
+        $response["result"] = "success";
+        $response["message"] = "Get UserInfo Successful";
+        $response["userInfo"] = $result;
+        return json_encode($response);
+  }
+
+}
+
+
+
 }

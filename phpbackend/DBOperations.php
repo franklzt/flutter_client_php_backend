@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: text/html; charset=utf-8');
 
 class DBOperations{
 
@@ -9,9 +10,7 @@ class DBOperations{
 	 private $conn;
 
 public function __construct() {
-
-	$this -> conn = new PDO("mysql:host=".$this -> host.";dbname=".$this -> db, $this -> user, $this -> pass);
-
+	$this -> conn = new PDO("mysql:host=".$this -> host.";dbname=".$this -> db.";charset=utf8", $this -> user, $this -> pass);
 }
 
 
@@ -131,6 +130,25 @@ public function verifyHash($password, $hash) {
 
     return password_verify ($password, $hash);
 }
+
+//======================================================================
+
+
+public function getUserInfo($data_id){
+
+	$sql = 'SELECT * from user_info WHERE data_id =:data_id';
+    $query = $this -> conn -> prepare($sql);
+	
+    $query -> execute(array('data_id' => $data_id));
+	
+	if($query)
+	{
+		$data = $query -> fetchObject();
+        return $data;	
+	}
+	return false;
+}
+
 }
 
 

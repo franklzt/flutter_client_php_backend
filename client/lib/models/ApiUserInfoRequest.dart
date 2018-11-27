@@ -15,26 +15,20 @@
  *
  */
 
+import 'package:flutter_client_php_backend/models/UserInfoRequest.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'UserInfo.g.dart';
+part 'ApiUserInfoRequest.g.dart';
 
 @JsonSerializable()
-class UserInfo extends Object {
-  String data_id;
-  String user_icon;
-  String user_name;
-  String department;
-  String employee_id;
+class ApiUserInfoRequest extends Object  {
+  String operation;
+  UserInfoRequest userInfoRequest;
+  ApiUserInfoRequest({this.operation, this.userInfoRequest});
 
-  UserInfo(
-      {this.data_id,
-      this.user_icon,
-      this.user_name,
-      this.department,
-      this.employee_id,
-      });
+  factory ApiUserInfoRequest.fromJson(Map<String, dynamic> json) =>
+      _$ApiUserInfoRequestFromJson(json);
 
-  factory UserInfo.fromJson(Map<String, dynamic> json) => _$UserInfoFromJson(json);
-  Map<String, dynamic> toJson() => _$UserInfoToJson(this);    
+  Map<String, dynamic> toJson() => _$ApiUserInfoRequestToJson(this);    
+  
 }

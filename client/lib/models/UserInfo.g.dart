@@ -8,17 +8,17 @@ part of 'UserInfo.dart';
 
 UserInfo _$UserInfoFromJson(Map<String, dynamic> json) {
   return UserInfo(
-      dataId: json['dataId'] as String,
-      userIcon: json['userIcon'] as String,
-      userName: json['userName'] as String,
+      data_id: json['data_id'] as String,
+      user_icon: json['user_icon'] as String,
+      user_name: json['user_name'] as String,
       department: json['department'] as String,
-      empolyeeID: json['empolyeeID'] as String);
+      employee_id: json['employee_id'] as String);
 }
 
 Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
-      'dataId': instance.dataId,
-      'userIcon': instance.userIcon,
-      'userName': instance.userName,
+      'data_id': instance.data_id,
+      'user_icon': instance.user_icon,
+      'user_name': instance.user_name,
       'department': instance.department,
-      'empolyeeID': instance.empolyeeID
+      'employee_id': instance.employee_id
     };
