@@ -10,6 +10,7 @@ import 'package:flutter_client_php_backend/help_pages/roomview_page.dart';
 import 'package:flutter_client_php_backend/models/User.dart';
 import 'package:flutter_client_php_backend/models/UserInfo.dart';
 import 'package:flutter_client_php_backend/models/UserInfoRequest.dart';
+import 'package:flutter_client_php_backend/models/VendorRequest.dart';
 import 'package:flutter_client_php_backend/models/base/EventObject.dart';
 import 'package:flutter_client_php_backend/utils/app_shared_preferences.dart';
 import 'package:flutter_client_php_backend/futures/userInfo_futures.dart';
@@ -96,7 +97,12 @@ Widget _buildTitle()
 
 void getData()
 {
-  initUserProfile();
+  requestVendorInfo();
+}
+
+Future<void> requestVendorInfo() async
+{
+  await getLocateInfoFromDB();
 }
 
 
