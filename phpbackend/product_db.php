@@ -23,9 +23,10 @@ class ProductionDBOperations
         {
             $data = array();
             while ($row = $query ->fetchAll(PDO::FETCH_ASSOC))
-            {
-                $data['vendors'] = $row;
+            {				
+                $data = $row;
             }
+			
             return $data;
         }
         return false;
@@ -43,7 +44,7 @@ class ProductionDBOperations
             $data = array();
             while ($row = $query ->fetchAll(PDO::FETCH_ASSOC))
             {
-                $data['product_house'] = $row;
+                $data = $row;
             }
             return $data;
         }
@@ -62,7 +63,7 @@ class ProductionDBOperations
             $data = array();
             while ($row = $query ->fetchAll(PDO::FETCH_ASSOC))
             {
-                $data['roomLocate'] = $row;
+                $data = $row;
             }
             return $data;
         }
@@ -81,7 +82,7 @@ class ProductionDBOperations
             $data = array();
             while ($row = $query ->fetchAll(PDO::FETCH_ASSOC))
             {
-                $data['roomDetails'] = $row;
+                $data = $row;
             }
             return $data;
         }

@@ -12,11 +12,22 @@ class _VenderPageState extends State<VenderPage>
   final _suggestions = <VerderInfo>[];
   final _biggerFont = const TextStyle(fontSize: 18.0);
 
-    _VenderPageState()
-    {
-      _suggestions.addAll(InfoManager.instance.verderInfoList.dataList);
-      InfoManager.instance.verderInfoList.setCurrentIndex(0);
-    }
+  int dataLength = 0;
+
+  _VenderPageState()
+  {
+    InfoManager.instance.onDataReady = dataReady;     
+  }
+
+  void dataReady()
+  {
+    print('data ready');
+    setState(() {
+    //dataLength = InfoManager.instance.verderInfoList.dataList.length;
+    _suggestions.addAll(InfoManager.instance.verderInfoList.dataList);
+    InfoManager.instance.verderInfoList.setCurrentIndex(0);
+    }); 
+  }  
 
   Widget _buildSuggestions(BuildContext context) 
   {     
@@ -52,6 +63,10 @@ void _onTapItem(BuildContext context,int  index)
   @override
   Widget build(BuildContext context) 
   {
+    if(dataLength <= 0)
+    {
+      return Container(color: Colors.blue);
+    }
     return Container(
           color: Colors.blue,
           child:_buildSuggestions(context));    

@@ -4,7 +4,7 @@ part 'RoomLocate.g.dart';
 
 @JsonSerializable()
 class RoomLocate extends Object  {
-  String data_id;
+  int data_id;
   String locate_name;
   int house_id;
  

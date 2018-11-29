@@ -4,7 +4,7 @@ part 'RoomInfo.g.dart';
 
 @JsonSerializable()
 class RoomInfo extends Object  {
-  String data_id;
+  int data_id;
   String title;
   String description;
   String icon_name;
@@ -13,10 +13,10 @@ class RoomInfo extends Object  {
   
   RoomInfo(
       {this.data_id,
-      this.house_title,
-      this.house_icon,
-      this.vendor_id,
-      this.web});
+      this.title,
+      this.description,
+      this.icon_name,
+      this.web,this.locate_id});
 
   factory RoomInfo.fromJson(Map<String, dynamic> json) => _$RoomInfoFromJson(json);
   Map<String, dynamic> toJson() => _$RoomInfoToJson(this);    

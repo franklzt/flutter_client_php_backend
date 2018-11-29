@@ -1,4 +1,14 @@
 
+import 'package:flutter_client_php_backend/futures/userInfo_futures.dart';
+import 'package:flutter_client_php_backend/models/ProductHouse.dart';
+import 'package:flutter_client_php_backend/models/ProductHouseList.dart';
+import 'package:flutter_client_php_backend/models/RoomInfo.dart';
+import 'package:flutter_client_php_backend/models/RoomInfoList.dart';
+import 'package:flutter_client_php_backend/models/RoomLocate.dart';
+import 'package:flutter_client_php_backend/models/RoomLocateList.dart';
+import 'package:flutter_client_php_backend/models/Vendor.dart';
+import 'package:flutter_client_php_backend/models/VendorList.dart';
+
 abstract class DataGenerator
 {
   Iterable<BaseInfo> generateData();
@@ -175,11 +185,47 @@ class InfoManager
   if(_instance== null)
    {
      _instance = InfoManager();
-     _instance.createList();
+     _instance.requestData();
+     //_instance.createList();
    }
     return _instance;
   }
 
+///////////////////////////////////////////////////////////////////
+
+  Function onDataReady;
+
+  List<Vendor> _vendorList = List<Vendor>();
+  ProductHouseList _houseList = ProductHouseList();
+  RoomLocateList _roomLocateList = RoomLocateList();
+  RoomInfoList _roomInfoList = RoomInfoList();
+
+  List<Vendor> get vendorList =>_vendorList;
+  ProductHouseList get houseList =>_houseList;
+  RoomLocateList get roomLocateList =>roomLocateList;
+  RoomInfoList get roomInfoList =>_roomInfoList;
+
+  Future<void> requestData() async
+  {
+    await getVendorInfoFromDB().then((vendorResult){
+     List<Vendor> tempReslut = vendorResult.object;
+     print(tempReslut.length);
+     print( tempReslut[0].data_id);
+      getHouseInfoFromDB().then((houseReslut){
+        _houseList = houseReslut.object;
+      getLocateInfoFromDB().then((locateReslut){
+        _roomLocateList = locateReslut.object;
+      getRoomDetailsInfoFromDB().then((roomResult){
+        _roomInfoList = roomResult.object;
+        _instance.adopter();
+        onDataReady();
+    });
+  });
+      });
+    });
+  }
+
+//////////////////////////////////////
   VerderInfoList _verderInfoList = VerderInfoList();
   HouseInfoList _houseInfoList = HouseInfoList();
   RoomLocateInfoList _roomLocateInfoList = RoomLocateInfoList();
@@ -205,12 +251,44 @@ class InfoManager
   }
 
 
+  void adopter()
+  {
+      // List<VendorInfo> tempVendorList = _vendorList.vendorList;
+      // for (var i = 0; i < _vendorList.vendorList.length; i++) {
+      //   VendorInfo item = tempVendorList[i];
+      //   VerderInfo temp = VerderInfo(item.data_id,item.vendor_icon);
+      //   _verderInfoList.dataList.add(temp);
+      // } 
+
+
+      // List<ProductHouse> tempHouseList = _houseList.houseList;
+      // for (var i = 0; i < _vendorList.vendorList.length; i++) {
+      //   ProductHouse item = tempHouseList[i];
+      //   HouseInfo temp = HouseInfo(item.data_id,item.house_icon,item.vendor_id);
+      //   _houseInfoList.dataList.add(temp);
+      // } 
+
+      // List<RoomLocate> tempRoomLocateList = _roomLocateList.locateList;
+      // for (var i = 0; i < _vendorList.vendorList.length; i++) {
+      //   RoomLocate item = tempRoomLocateList[i];
+      //   RoomLocateInfo temp = RoomLocateInfo(item.data_id,item.locate_name,item.locate_name,item.house_id);
+      //   _roomLocateInfoList.dataList.add(temp);
+      // } 
+
+      // List<RoomInfo> tempRoomList = roomInfoList.roomDetailsList;
+      // for (var i = 0; i < _vendorList.vendorList.length; i++) {
+      //   RoomInfo item = tempRoomList[i];
+      //   RoomDetailInfo temp = RoomDetailInfo(item.data_id,item.title,item.locate_id,item.web,item.icon_name,item.title,item.description);
+      //   _roomDetailInfoList.dataList.add(temp);
+      // } 
+  }
+
   void createList()
   {
     _verderInfoList.createList(10);
     _houseInfoList.createListOnOther(30, 3);
     _roomLocateInfoList.createListOnOther(90, 3);
-    _roomDetailInfoList.createListOnOther(270, 3);
+    _roomDetailInfoList.createListOnOther(270,3);
   }
 
   FilterList<HouseInfo> _houseFliter = FilterList<HouseInfo>();
@@ -224,7 +302,4 @@ class InfoManager
   int _detailIndex = 0;
   void setDetailIndex(int index){_detailIndex = index;}
   RoomDetailInfo get getCurrentRoomDetailsInfo =>filteredRommDetailsInfo.elementAt(_detailIndex);
-
-  
-
 }

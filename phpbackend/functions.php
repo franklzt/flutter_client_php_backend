@@ -169,7 +169,7 @@ public function getUserInfo($userInfoRequest)
 
         $response["result"] = "failure";
         $response["message"] = "UserInfo Do not exist";
-        $response["userinfo"] = "no userdata";
+        $response["userInfo"] = "no userdata";
         return json_encode($response);
 
        } else {

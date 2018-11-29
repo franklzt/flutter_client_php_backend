@@ -17,14 +17,14 @@ public function __construct()
 
             $response["result"] = "failure";
             $response["message"] = "VendorInfo Do not exist";
-            $response["VendorList"] = "no userdata";
+            $response["vendorContainer"] = "no userdata";
             return json_encode($response);
 
         } else {
 
             $response["result"] = "success";
             $response["message"] = "Get VendorInfo Successful";
-            $response["VendorList"] = $result;
+            $response["vendorContainer"] = $result;
             return json_encode($response);
         }
     }
@@ -37,14 +37,14 @@ public function __construct()
 
             $response["result"] = "failure";
             $response["message"] = "VendorInfo Do not exist";
-            $response["HouseList"] = "no userdata";
+            $response["houseList"] = "no userdata";
             return json_encode($response);
 
         } else {
 
             $response["result"] = "success";
             $response["message"] = "Get VendorInfo Successful";
-            $response["HouseList"] = $result;
+            $response["houseList"] = $result;
             return json_encode($response);
         }
     }
@@ -57,14 +57,14 @@ public function __construct()
 
             $response["result"] = "failure";
             $response["message"] = "roomLocate Do not exist";
-            $response["LocateList"] = "no roomLocate";
+            $response["locateList"] = "no roomLocate";
             return json_encode($response);
 
         } else {
 
             $response["result"] = "success";
             $response["message"] = "Get roomLocate Successful";
-            $response["LocateList"] = $result;
+            $response["locateList"] = $result;
             return json_encode($response);
         }
     }
@@ -77,14 +77,14 @@ public function __construct()
 
             $response["result"] = "failure";
             $response["message"] = "roomDetails Do not exist";
-            $response["RoomDetailsList"] = "no roomDetails";
+            $response["roomDetailsList"] = "no roomDetails";
             return json_encode($response);
 
         } else {
 
             $response["result"] = "success";
             $response["message"] = "Get roomDetails Successful";
-            $response["RoomDetailsList"] = $result;
+            $response["roomDetailsList"] = $result;
             return json_encode($response);
         }
     }

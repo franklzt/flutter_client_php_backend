@@ -18,7 +18,11 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter_client_php_backend/models/ApiHouseInfoResponse.dart';
+import 'package:flutter_client_php_backend/models/ApiLocateInfoResponse.dart';
+import 'package:flutter_client_php_backend/models/ApiRoomInfoResponse.dart';
 import 'package:flutter_client_php_backend/models/ApiUserInfoResponse.dart';
+import 'package:flutter_client_php_backend/models/ApiVendorInfoResponse.dart';
 import 'package:flutter_client_php_backend/models/UserInfoRequest.dart';
 import 'package:flutter_client_php_backend/models/VendorRequest.dart';
 import 'package:flutter_client_php_backend/models/base/EventObject.dart';
@@ -70,7 +74,7 @@ Future<EventObject> getUserInfo(UserInfoRequest userReuest) async
 Future<EventObject> getVendorInfoFromDB() async 
 {
   VendorRequest operationRequest = VendorRequest(operation: ProductRequestCmmd.VenderInfo);
-  try {
+  
     final encoding = APIConstants.OCTET_STREAM_ENCODING;
     final response = await http.post(APIConstants.API_PRODUCTINFO_URL,
         body: json.encode(operationRequest.toJson()),
@@ -78,14 +82,12 @@ Future<EventObject> getVendorInfoFromDB() async
     if (response != null) {
       if (response.statusCode == APIResponseCode.SC_OK &&
           response.body != null) {
-            print(response.body);
-            print(response.statusCode);
-        final responseJson = json.decode(response.body);       
-        ApiUserInfoResponse apiResponse = ApiUserInfoResponse.fromJson(responseJson);
+        final responseJson = json.decode(response.body);
+        ApiVendorInfoResponse apiResponse = ApiVendorInfoResponse.fromJson(responseJson);
         if (apiResponse.result == APIOperations.SUCCESS) {
           return new EventObject(
               id: EventConstants.LOGIN_USER_SUCCESSFUL,
-              object: apiResponse.userInfo);
+              object: apiResponse.vendorContainer);              
         } else {
           return new EventObject(id: EventConstants.LOGIN_USER_UN_SUCCESSFUL);
         }
@@ -95,9 +97,7 @@ Future<EventObject> getVendorInfoFromDB() async
     } else {
       return new EventObject();
     }
-  } catch (Exception) {
-    return EventObject();
-  }
+  
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -112,14 +112,12 @@ Future<EventObject> getHouseInfoFromDB() async
     if (response != null) {
       if (response.statusCode == APIResponseCode.SC_OK &&
           response.body != null) {
-            print(response.body);
-            print(response.statusCode);
         final responseJson = json.decode(response.body);       
-        ApiUserInfoResponse apiResponse = ApiUserInfoResponse.fromJson(responseJson);
+        ApiHouseInfoResponse apiResponse = ApiHouseInfoResponse.fromJson(responseJson);
         if (apiResponse.result == APIOperations.SUCCESS) {
           return new EventObject(
               id: EventConstants.LOGIN_USER_SUCCESSFUL,
-              object: apiResponse.userInfo);
+              object: apiResponse.houseList);
         } else {
           return new EventObject(id: EventConstants.LOGIN_USER_UN_SUCCESSFUL);
         }
@@ -146,14 +144,12 @@ Future<EventObject> getLocateInfoFromDB() async
     if (response != null) {
       if (response.statusCode == APIResponseCode.SC_OK &&
           response.body != null) {
-            print(response.body);
-            print(response.statusCode);
         final responseJson = json.decode(response.body);       
-        ApiUserInfoResponse apiResponse = ApiUserInfoResponse.fromJson(responseJson);
+        ApiLocateInfoResponse apiResponse = ApiLocateInfoResponse.fromJson(responseJson);
         if (apiResponse.result == APIOperations.SUCCESS) {
           return new EventObject(
               id: EventConstants.LOGIN_USER_SUCCESSFUL,
-              object: apiResponse.userInfo);
+              object: apiResponse.locateList);
         } else {
           return new EventObject(id: EventConstants.LOGIN_USER_UN_SUCCESSFUL);
         }
@@ -179,14 +175,12 @@ Future<EventObject> getRoomDetailsInfoFromDB() async
     if (response != null) {
       if (response.statusCode == APIResponseCode.SC_OK &&
           response.body != null) {
-            print(response.body);
-            print(response.statusCode);
         final responseJson = json.decode(response.body);       
-        ApiUserInfoResponse apiResponse = ApiUserInfoResponse.fromJson(responseJson);
+        ApiRoomInfoResponse apiResponse = ApiRoomInfoResponse.fromJson(responseJson);
         if (apiResponse.result == APIOperations.SUCCESS) {
           return new EventObject(
               id: EventConstants.LOGIN_USER_SUCCESSFUL,
-              object: apiResponse.userInfo);
+              object: apiResponse.roomDetailsList);
         } else {
           return new EventObject(id: EventConstants.LOGIN_USER_UN_SUCCESSFUL);
         }
