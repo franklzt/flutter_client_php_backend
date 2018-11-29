@@ -8,10 +8,10 @@ part of 'ProductHouse.dart';
 
 ProductHouse _$ProductHouseFromJson(Map<String, dynamic> json) {
   return ProductHouse(
-      data_id: json['data_id'] as int,
+      data_id: json['data_id'] as String,
       house_title: json['house_title'] as String,
       house_icon: json['house_icon'] as String,
-      vendor_id: json['vendor_id'] as int,
+      vendor_id: json['vendor_id'] as String,
       web: json['web'] as String);
 }
 

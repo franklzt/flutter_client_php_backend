@@ -50,7 +50,7 @@ Future<EventObject> getUserInfo(UserInfoRequest userReuest) async
     if (response != null) {
       if (response.statusCode == APIResponseCode.SC_OK &&
           response.body != null) {
-        final responseJson = json.decode(response.body);       
+        final responseJson = json.decode(response.body);
         ApiUserInfoResponse apiResponse = ApiUserInfoResponse.fromJson(responseJson);
         if (apiResponse.result == APIOperations.SUCCESS) {
           return new EventObject(
@@ -83,11 +83,12 @@ Future<EventObject> getVendorInfoFromDB() async
       if (response.statusCode == APIResponseCode.SC_OK &&
           response.body != null) {
         final responseJson = json.decode(response.body);
+       
         ApiVendorInfoResponse apiResponse = ApiVendorInfoResponse.fromJson(responseJson);
         if (apiResponse.result == APIOperations.SUCCESS) {
           return new EventObject(
               id: EventConstants.LOGIN_USER_SUCCESSFUL,
-              object: apiResponse.vendorContainer);              
+              object: apiResponse.vendorList);              
         } else {
           return new EventObject(id: EventConstants.LOGIN_USER_UN_SUCCESSFUL);
         }
@@ -136,7 +137,7 @@ Future<EventObject> getHouseInfoFromDB() async
 Future<EventObject> getLocateInfoFromDB() async 
 {
     VendorRequest operationRequest = VendorRequest(operation: ProductRequestCmmd.LocateInfo);
-  try {
+  
     final encoding = APIConstants.OCTET_STREAM_ENCODING;
     final response = await http.post(APIConstants.API_PRODUCTINFO_URL,
         body: json.encode(operationRequest.toJson()),
@@ -144,8 +145,9 @@ Future<EventObject> getLocateInfoFromDB() async
     if (response != null) {
       if (response.statusCode == APIResponseCode.SC_OK &&
           response.body != null) {
-        final responseJson = json.decode(response.body);       
+        final responseJson = json.decode(response.body); 
         ApiLocateInfoResponse apiResponse = ApiLocateInfoResponse.fromJson(responseJson);
+
         if (apiResponse.result == APIOperations.SUCCESS) {
           return new EventObject(
               id: EventConstants.LOGIN_USER_SUCCESSFUL,
@@ -159,9 +161,7 @@ Future<EventObject> getLocateInfoFromDB() async
     } else {
       return new EventObject();
     }
-  } catch (Exception) {
-    return EventObject();
-  }
+  
 }
 ///////////////////////////////////////////////////////////////////////////////
 Future<EventObject> getRoomDetailsInfoFromDB() async 

@@ -4,10 +4,10 @@ part 'ProductHouse.g.dart';
 
 @JsonSerializable()
 class ProductHouse extends Object  {
-  int data_id;
+  String data_id;
   String house_title;
   String house_icon;
-  int vendor_id;
+  String vendor_id;
   String web;
 
   ProductHouse(

@@ -10,10 +10,10 @@ ApiRoomInfoResponse _$ApiRoomInfoResponseFromJson(Map<String, dynamic> json) {
   return ApiRoomInfoResponse(
       result: json['result'] as String,
       message: json['message'] as String,
-      roomDetailsList: json['roomDetailsList'] == null
-          ? null
-          : RoomInfoList.fromJson(
-              json['roomDetailsList'] as Map<String, dynamic>));
+      roomDetailsList: (json['roomDetailsList'] as List)
+          ?.map((e) =>
+              e == null ? null : RoomInfo.fromJson(e as Map<String, dynamic>))
+          ?.toList());
 }
 
 Map<String, dynamic> _$ApiRoomInfoResponseToJson(

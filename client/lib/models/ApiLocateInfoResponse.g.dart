@@ -11,10 +11,10 @@ ApiLocateInfoResponse _$ApiLocateInfoResponseFromJson(
   return ApiLocateInfoResponse(
       result: json['result'] as String,
       message: json['message'] as String,
-      locateList: json['locateList'] == null
-          ? null
-          : RoomLocateList.fromJson(
-              json['locateList'] as Map<String, dynamic>));
+      locateList: (json['locateList'] as List)
+          ?.map((e) =>
+              e == null ? null : RoomLocate.fromJson(e as Map<String, dynamic>))
+          ?.toList());
 }
 
 Map<String, dynamic> _$ApiLocateInfoResponseToJson(

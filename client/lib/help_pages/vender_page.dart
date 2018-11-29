@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_client_php_backend/help_pages/webIcon.dart';
 import 'package:flutter_client_php_backend/manager/DataInfo.dart';
 
 class VenderPage extends StatefulWidget {
@@ -21,9 +22,8 @@ class _VenderPageState extends State<VenderPage>
 
   void dataReady()
   {
-    print('data ready');
     setState(() {
-    //dataLength = InfoManager.instance.verderInfoList.dataList.length;
+    dataLength = InfoManager.instance.verderInfoList.dataList.length;
     _suggestions.addAll(InfoManager.instance.verderInfoList.dataList);
     InfoManager.instance.verderInfoList.setCurrentIndex(0);
     }); 
@@ -32,7 +32,7 @@ class _VenderPageState extends State<VenderPage>
   Widget _buildSuggestions(BuildContext context) 
   {     
       return ListView.builder(
-        itemCount: 20,
+        itemCount: dataLength * 2,
         padding: const EdgeInsets.all(16.0),            
         itemBuilder: (context, i) {
           if (i.isOdd) return Divider();
@@ -45,9 +45,8 @@ class _VenderPageState extends State<VenderPage>
   Widget _buildRow(BuildContext context,int position) {
     return ListTile(
       onTap: () => _onTapItem(context, position),
-      title: Text(
-      _suggestions[position].infoName,
-      style: _biggerFont,
+      title: WebIcon(
+      _suggestions[position].infoName,BoxFit.scaleDown
       ),
     );
   }

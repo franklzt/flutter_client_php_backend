@@ -4,12 +4,12 @@ part 'RoomInfo.g.dart';
 
 @JsonSerializable()
 class RoomInfo extends Object  {
-  int data_id;
+  String data_id;
   String title;
   String description;
   String icon_name;
   String web;
-  int locate_id;
+  String locate_id;
   
   RoomInfo(
       {this.data_id,

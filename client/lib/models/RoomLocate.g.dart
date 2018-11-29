@@ -8,9 +8,9 @@ part of 'RoomLocate.dart';
 
 RoomLocate _$RoomLocateFromJson(Map<String, dynamic> json) {
   return RoomLocate(
-      data_id: json['data_id'] as int,
+      data_id: json['data_id'] as String,
       locate_name: json['locate_name'] as String,
-      house_id: json['house_id'] as int);
+      house_id: json['house_id'] as String);
 }
 
 Map<String, dynamic> _$RoomLocateToJson(RoomLocate instance) =>

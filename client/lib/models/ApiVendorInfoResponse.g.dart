@@ -11,7 +11,7 @@ ApiVendorInfoResponse _$ApiVendorInfoResponseFromJson(
   return ApiVendorInfoResponse(
       result: json['result'] as String,
       message: json['message'] as String,
-      vendorContainer: (json['vendorContainer'] as List)
+      vendorList: (json['vendorList'] as List)
           ?.map((e) =>
               e == null ? null : Vendor.fromJson(e as Map<String, dynamic>))
           ?.toList());
@@ -22,5 +22,5 @@ Map<String, dynamic> _$ApiVendorInfoResponseToJson(
     <String, dynamic>{
       'result': instance.result,
       'message': instance.message,
-      'vendorContainer': instance.vendorContainer
+      'vendorList': instance.vendorList
     };

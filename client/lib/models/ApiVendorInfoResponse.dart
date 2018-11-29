@@ -1,17 +1,14 @@
 import 'package:flutter_client_php_backend/models/Vendor.dart';
-import 'package:flutter_client_php_backend/models/VendorContainer.dart';
-import 'package:flutter_client_php_backend/models/VendorList.dart';
 import 'package:json_annotation/json_annotation.dart';
-
 part 'ApiVendorInfoResponse.g.dart';
 
 @JsonSerializable()
 class ApiVendorInfoResponse extends Object {
   String result;
   String message;
-  List<Vendor> vendorContainer;
+  List<Vendor> vendorList;
 
-  ApiVendorInfoResponse({this.result, this.message, this.vendorContainer});
+  ApiVendorInfoResponse({this.result, this.message, this.vendorList});
 
   factory ApiVendorInfoResponse.fromJson(Map<String, dynamic> json) =>
       _$ApiVendorInfoResponseFromJson(json);

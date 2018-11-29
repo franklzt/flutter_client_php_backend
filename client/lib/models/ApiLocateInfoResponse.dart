@@ -1,4 +1,4 @@
-import 'package:flutter_client_php_backend/models/RoomLocateList.dart';
+import 'package:flutter_client_php_backend/models/RoomLocate.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'ApiLocateInfoResponse.g.dart';
@@ -7,7 +7,7 @@ part 'ApiLocateInfoResponse.g.dart';
 class ApiLocateInfoResponse extends Object {
   String result;
   String message;
-  RoomLocateList locateList;
+  List<RoomLocate> locateList;
 
   ApiLocateInfoResponse({this.result, this.message, this.locateList});
 

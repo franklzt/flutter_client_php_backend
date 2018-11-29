@@ -1,4 +1,4 @@
-import 'package:flutter_client_php_backend/models/ProductHouseList.dart';
+import 'package:flutter_client_php_backend/models/ProductHouse.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'ApiHouseInfoResponse.g.dart';
@@ -7,7 +7,7 @@ part 'ApiHouseInfoResponse.g.dart';
 class ApiHouseInfoResponse extends Object {
   String result;
   String message;
-  ProductHouseList houseList;
+  List<ProductHouse> houseList;
 
   ApiHouseInfoResponse({this.result, this.message, this.houseList});
 

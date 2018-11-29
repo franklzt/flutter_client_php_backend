@@ -17,14 +17,14 @@ public function __construct()
 
             $response["result"] = "failure";
             $response["message"] = "VendorInfo Do not exist";
-            $response["vendorContainer"] = "no userdata";
+            $response["vendorList"] = "no userdata";
             return json_encode($response);
 
         } else {
 
             $response["result"] = "success";
             $response["message"] = "Get VendorInfo Successful";
-            $response["vendorContainer"] = $result;
+            $response["vendorList"] = $result;
             return json_encode($response);
         }
     }
