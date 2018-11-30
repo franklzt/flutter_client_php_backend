@@ -10,6 +10,26 @@ abstract class DataGenerator
   Iterable<BaseInfo> generateData();
 }
 
+
+class IndexBaseInfo
+{
+  final int infoID;
+  IndexBaseInfo(this.infoID);
+}
+
+class IndexFilterInfo extends IndexBaseInfo
+{
+  final int filterID;
+  IndexFilterInfo(int infoId,this.filterID):super(infoId);
+}
+
+class NameFilterInfo extends IndexFilterInfo
+{
+  final String  name;
+  NameFilterInfo(int infoId,int filterId,this.name):super(infoId,filterId);
+}
+
+
 class BaseInfo
 {
   String _infoName;
@@ -23,43 +43,39 @@ class BaseInfo
   void setInfoName(String name){this._infoName = name;}
 }
 
+
+
 class VerderInfo extends BaseInfo
 {
    VerderInfo(int id,String name) : super(id, name);
 }
 
-class HouseInfo extends BaseInfo
+class HouseInfo extends NameFilterInfo
 {
-  final int _verderID;
-  int get verderID =>_verderID;
-  HouseInfo(int id,String name,this._verderID):super(id,name);
+  final String url;
+  HouseInfo(int id,int filterId String name,this.url):super(id,filterId,name);
 }
 
-class RoomLocateInfo extends BaseInfo
-{
-  final int _houseID;
-  int get houseID =>_houseID;
-
+class RoomLocateInfo extends NameFilterInfo
+{  
   final String _url;
   String get url =>_url;
-  RoomLocateInfo(int id,String name,this._url,this._houseID):super(id,name);
+  RoomLocateInfo(int id,int filterId String name,this._url):super(id,filterId,name);
 }
 
-class RoomDetailInfo extends BaseInfo
+class RoomDetailInfo extends NameFilterInfo
 {
-  final int _roomLocationID;
   final String _url;
   final String _iconName;
   final String _title;
   final String _des;
 
-  int get roomLocationID =>_roomLocationID;
   String get url =>_url;
   String get iconName =>_iconName;
   String get title =>_title;
   String get des =>_des;
 
-  RoomDetailInfo(int id,String name,this._roomLocationID,this._url,this._iconName,this._title,this._des):super(id,name);
+  RoomDetailInfo(int id,int filterId String name,this._url,this._iconName,this._title,this._des):super(id,filterId,name);
 }
 
 
@@ -125,7 +141,7 @@ class HouseInfoList extends CreateList<HouseInfo>
   @override
   HouseInfo creatorOther(int index,int otherCount) {
     String numberStr = (index + otherCount + 1).toString();
-    return HouseInfo(index, "House" + numberStr,otherCount);
+    return HouseInfo(index,otherCount, "House" + numberStr,'');
     }
 }
 
@@ -135,7 +151,7 @@ class RoomLocateInfoList extends CreateList<RoomLocateInfo>
   RoomLocateInfo creatorOther(int index,int otherCount) {
         String numberStr = (index + otherCount + 1).toString();
 
-      return RoomLocateInfo(index, "RoomLocate" + numberStr,"url",otherCount);
+      return RoomLocateInfo(index, otherCount,"RoomLocate" + numberStr,"url",);
     }
 }
 
@@ -144,11 +160,11 @@ class RoomDetailInfoList extends CreateList<RoomDetailInfo>
  @override
   RoomDetailInfo creatorOther(int index,int otherCount) {
     String numberStr = (index + otherCount + 1).toString();
-      return RoomDetailInfo(index, "RoomDetails" + numberStr,otherCount,"url","iconName","Details " + numberStr + MockConstData.title,MockConstData.des);
+      return RoomDetailInfo(index, otherCount,"RoomDetails" + numberStr,"url","iconName","Details " + numberStr + MockConstData.title,MockConstData.des);
     }
 }
 
-class FilterList<T extends BaseInfo>
+class FilterList<T extends NameFilterInfo>
 {
   Iterable<T> filterList(int id, List<T> dataList)
   { 
@@ -156,7 +172,7 @@ class FilterList<T extends BaseInfo>
     for (var i = 0; i < dataList.length; i++)
      {  
         T data = dataList[i];
-        if(data.infoID == id)
+        if(data.filterID == id)
         {
             tempData.add(data);
         }       
@@ -181,8 +197,6 @@ class InfoManager
   if(_instance== null)
    {
      _instance = InfoManager();
-     _instance.requestData();
-     //_instance.createList();
    }
     return _instance;
   }
@@ -201,6 +215,7 @@ class InfoManager
   List<RoomLocate> get roomLocateList =>roomLocateList;
   List<RoomInfo> get roomInfoList =>_roomInfoList;
 
+
   Future<void> requestData() async
   {
     await getVendorInfoFromDB().then((vendorResult){
@@ -213,8 +228,8 @@ class InfoManager
         _roomInfoList = roomResult.object;
         _instance.adopter();
         onDataReady();
-    });
-  });
+          });
+        });
       });
     });
   }
@@ -247,32 +262,31 @@ class InfoManager
 
   void adopter()
   {
+    if(_verderInfoList.dataList.length <= 0)
+    {
       for (var i = 0; i < _vendorList.length; i++) {
-        Vendor item = _vendorList[i];
-        VerderInfo temp = VerderInfo( int.parse(item.data_id)  ,item.vendor_icon);
-        _verderInfoList.dataList.add(temp);
-      } 
-
-
-      List<ProductHouse> tempHouseList = _houseList;
-      for (var i = 0; i < _houseList.length; i++) {
+              Vendor item = _vendorList[i];
+              VerderInfo temp = VerderInfo( int.parse(item.data_id)  ,item.vendor_icon);
+              _verderInfoList.dataList.add(temp);
+            } 
+       for (var i = 0; i < _houseList.length; i++) {
         ProductHouse item = _houseList[i];
-        HouseInfo temp = HouseInfo(int.parse(item.data_id),item.house_icon,int.parse(item.vendor_id));
+        HouseInfo temp = HouseInfo(int.parse(item.data_id),int.parse(item.vendor_id),item.house_icon,item.web);
         _houseInfoList.dataList.add(temp);
       } 
 
-      List<RoomLocate> tempRoomLocateList = _roomLocateList;
       for (var i = 0; i < _roomLocateList.length; i++) {
         RoomLocate item = _roomLocateList[i];
-        RoomLocateInfo temp = RoomLocateInfo(int.parse(item.data_id),item.locate_name,item.locate_name,int.parse(item.house_id));
+        RoomLocateInfo temp = RoomLocateInfo(int.parse(item.data_id),int.parse(item.house_id),item.locate_name,item.locate_name,);
         _roomLocateInfoList.dataList.add(temp);
       } 
 
       for (var i = 0; i < _roomInfoList.length; i++) {
         RoomInfo item = _roomInfoList[i];
-        RoomDetailInfo temp = RoomDetailInfo(int.parse(item.data_id),item.title,int.parse(item.locate_id),item.web,item.icon_name,item.title,item.description);
+        RoomDetailInfo temp = RoomDetailInfo(int.parse(item.data_id),int.parse(item.locate_id),item.title,item.web,item.icon_name,item.title,item.description);
         _roomDetailInfoList.dataList.add(temp);
-      } 
+      }       
+    }
   }
 
   void createList()
@@ -284,12 +298,13 @@ class InfoManager
   }
 
   FilterList<HouseInfo> _houseFliter = FilterList<HouseInfo>();
+
   FilterList<RoomLocateInfo> _roomLocateFliter = FilterList<RoomLocateInfo>();
   FilterList<RoomDetailInfo> _roomDetailFliter = FilterList<RoomDetailInfo>();
 
   Iterable<HouseInfo> get filteredHouseInfo =>_houseFliter.filterList(_verderInfoList.getCurrentItem()._infoID, _houseInfoList.dataList);
-  Iterable<RoomLocateInfo> get filteredRoomLocateInfo =>_roomLocateFliter.filterList(_houseInfoList.getCurrentItem()._infoID, _roomLocateInfoList.dataList);
-  Iterable<RoomDetailInfo> get filteredRommDetailsInfo =>_roomDetailFliter.filterList(_roomLocateInfoList.getCurrentItem()._infoID, _roomDetailInfoList.dataList);
+  Iterable<RoomLocateInfo> get filteredRoomLocateInfo =>_roomLocateFliter.filterList(_houseInfoList.getCurrentItem().infoID, _roomLocateInfoList.dataList);
+  Iterable<RoomDetailInfo> get filteredRommDetailsInfo =>_roomDetailFliter.filterList(_roomLocateInfoList.getCurrentItem().infoID, _roomDetailInfoList.dataList);
 
   int _detailIndex = 0;
   void setDetailIndex(int index){_detailIndex = index;}

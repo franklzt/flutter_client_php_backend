@@ -8,10 +8,11 @@ class WebIcon extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return Container(
-      child:
+      color: Colors.redAccent,
+      child:Container(child:
       Image.network(
           APIConstants.IconBase + _iconUrl,
           fit: _fit,)
-    );
+    ));
   }
 }

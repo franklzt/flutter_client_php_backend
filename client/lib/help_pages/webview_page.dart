@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_client_php_backend/utils/constants.dart';
 import 'package:flutter_inappbrowser/flutter_inappbrowser.dart';
 
 
 
 class WebViewPage extends StatefulWidget {
   final String _initURL;
-  String get initURL =>_initURL;
+  String get initURL => APIConstants.IconBase + _initURL;
 
   WebViewPage(this._initURL);
 
@@ -36,7 +37,7 @@ class _WebViewPageState extends State<WebViewPage>
                     border: Border.all(color: Colors.pinkAccent)
                   ),
           child:  InAppWebView(
-          initialUrl: widget._initURL,
+          initialUrl: widget.initURL,
           initialHeaders: {
 
           },
@@ -45,7 +46,7 @@ class _WebViewPageState extends State<WebViewPage>
           },
           onWebViewCreated: (InAppWebViewController controller) {
             webView = controller;
-            webView.loadUrl(widget._initURL);
+            webView.loadUrl(widget.initURL);
           },
           onLoadStart: (InAppWebViewController controller, String url) {
             print("started $url");

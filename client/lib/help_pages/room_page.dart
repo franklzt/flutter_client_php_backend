@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_client_php_backend/help_pages/page_decoration.dart';
+import 'package:flutter_client_php_backend/help_pages/webIcon.dart';
 import 'package:flutter_client_php_backend/manager/DataInfo.dart';
 
 class RoomPage extends StatefulWidget {
@@ -12,15 +13,39 @@ class _RoomPageState extends State<RoomPage> {
 
 String _title = "";
 String _des = "";
+String _icon = "";
 int _length = 0;
 int _index = 0;
 
+
+  int _dataLength = 0;
+ 
+ @override
+ void initState() {
+     super.initState();
+     InfoManager.instance.onDataReady = dataReady;
+   }
+
+  @override
+  void didChangeDependencies() {
+      super.didChangeDependencies();
+      dataReady();
+    }
+
+  void dataReady()
+  {
+    setState(() {     
+    _dataLength = InfoManager.instance.verderInfoList.dataList.length;
+    InfoManager.instance.verderInfoList.setCurrentIndex(0);
+    }); 
+  }  
+
+
 Widget _buildImage()
 {
-  return Container(alignment: Alignment.center,child: PageDecoration(Image.network(
-          'https://github.com/flutter/website/blob/master/src/_includes/code/layout/lakes/images/lake.jpg?raw=true',
-          fit: BoxFit.cover,
-        )));
+  return Container(alignment: Alignment.center,child: PageDecoration(WebIcon(
+          _icon,
+           BoxFit.cover)));
 }
 
 void _updateData()
@@ -30,6 +55,7 @@ void _updateData()
        _length = InfoManager.instance.filteredRommDetailsInfo.length;
       _title = details.title;
       _des =   details.des;
+      _icon = details.iconName;
     });
  
 }

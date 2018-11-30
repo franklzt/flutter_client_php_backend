@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_client_php_backend/help_pages/webIcon.dart';
 import 'package:flutter_client_php_backend/manager/DataInfo.dart';
 
 class HousePage extends StatefulWidget {
@@ -9,10 +10,17 @@ class HousePage extends StatefulWidget {
 class _HousePageState extends State<HousePage> 
 {
    var _suggestions = <HouseInfo>[];
-   var _biggerFont = const TextStyle(fontSize: 18.0);
+  @override
+  void initState() {
+      super.initState();
+      _suggestions = InfoManager.instance.filteredHouseInfo;
+      InfoManager.instance.houseInfoList.setCurrentIndex(0);
+
+    }
+
+
+
   Widget _buildSuggestions() {
-  _suggestions.clear();
-  _suggestions.addAll(InfoManager.instance.filteredHouseInfo);
     return ListView.builder(
       itemCount: _suggestions.length * 2,
       padding: const EdgeInsets.all(16.0),      
@@ -27,9 +35,8 @@ class _HousePageState extends State<HousePage>
   Widget _buildRow(int index) {
     return ListTile(
        onTap: () => _onTapItem(context, index),
-      title: Text(
-      _suggestions[index].infoName,
-        style: _biggerFont,
+       title: WebIcon(
+      _suggestions[index].name,BoxFit.scaleDown
       ),
     );
   }

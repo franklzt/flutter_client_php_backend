@@ -1,5 +1,4 @@
 import 'package:flutter_client_php_backend/models/RoomInfo.dart';
-import 'package:flutter_client_php_backend/models/RoomInfoList.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'ApiRoomInfoResponse.g.dart';

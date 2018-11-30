@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_client_php_backend/help_pages/webview_page.dart';
+import 'package:flutter_client_php_backend/manager/DataInfo.dart';
 
 class RoomViewPage extends StatefulWidget {
   @override
@@ -11,7 +12,8 @@ class _RoomViewPageState extends State<RoomViewPage> {
 var webview;
   Widget _buildWebView()
     {
-      webview = WebViewPage("https://www.baidu.com");
+      String url = InfoManager.instance.getCurrentRoomDetailsInfo.url;
+      webview = WebViewPage(url);
       return webview;
     }
 

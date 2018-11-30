@@ -19,7 +19,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_client_php_backend/customviews/progress_dialog.dart';
 import 'package:flutter_client_php_backend/futures/app_futures.dart';
 import 'package:flutter_client_php_backend/models/base/EventObject.dart';
-import 'package:flutter_client_php_backend/pages/home_page.dart';
 import 'package:flutter_client_php_backend/pages/product_page.dart';
 import 'package:flutter_client_php_backend/pages/register_page.dart';
 import 'package:flutter_client_php_backend/utils/app_shared_preferences.dart';

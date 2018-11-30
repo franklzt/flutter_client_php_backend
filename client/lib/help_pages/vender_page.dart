@@ -7,32 +7,24 @@ class VenderPage extends StatefulWidget {
   _VenderPageState createState() => _VenderPageState();
 }
 
-
 class _VenderPageState extends State<VenderPage> 
 {
-  final _suggestions = <VerderInfo>[];
-  final _biggerFont = const TextStyle(fontSize: 18.0);
-
-  int dataLength = 0;
-
-  _VenderPageState()
-  {
-    InfoManager.instance.onDataReady = dataReady;     
-  }
-
-  void dataReady()
-  {
-    setState(() {
-    dataLength = InfoManager.instance.verderInfoList.dataList.length;
-    _suggestions.addAll(InfoManager.instance.verderInfoList.dataList);
-    InfoManager.instance.verderInfoList.setCurrentIndex(0);
-    }); 
-  }  
+  List<VerderInfo> _suggestions = <VerderInfo>[];
+  int _dataLength = 0;
+ 
+  @override
+  void initState()
+    {
+      super.initState();
+      _suggestions =InfoManager.instance.verderInfoList.dataList;
+      _dataLength = _suggestions.length;
+      InfoManager.instance.verderInfoList.setCurrentIndex(0);
+    }
 
   Widget _buildSuggestions(BuildContext context) 
   {     
       return ListView.builder(
-        itemCount: dataLength * 2,
+        itemCount: _dataLength * 2,
         padding: const EdgeInsets.all(16.0),            
         itemBuilder: (context, i) {
           if (i.isOdd) return Divider();
@@ -43,6 +35,7 @@ class _VenderPageState extends State<VenderPage>
     }
 
   Widget _buildRow(BuildContext context,int position) {
+    print(_suggestions[position].infoName);
     return ListTile(
       onTap: () => _onTapItem(context, position),
       title: WebIcon(
@@ -62,7 +55,7 @@ void _onTapItem(BuildContext context,int  index)
   @override
   Widget build(BuildContext context) 
   {
-    if(dataLength <= 0)
+    if(_dataLength <= 0)
     {
       return Container(color: Colors.blue);
     }

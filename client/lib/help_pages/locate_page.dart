@@ -9,30 +9,32 @@ class LocatePage extends StatefulWidget {
 
 class _LocatePageState extends State<LocatePage> {
 
-  WebViewPage webview;
-  Widget _buildWebView()
-    {
-      webview = WebViewPage("https://www.baidu.com");
+    WebViewPage webview;
+    Widget _buildWebView()
+    {      
+      String webUrl = InfoManager.instance.houseInfoList.getCurrentItem().url;
+      webview = WebViewPage(webUrl);
       return webview;
     }
 
   var _suggestions = <RoomLocateInfo>[];
-   var _biggerFont = const TextStyle(fontSize: 18.0);
-
-    @override
-    void initState() {
-      super.initState();
-    }
-
+  var _biggerFont = const TextStyle(fontSize: 18.0);
+ 
+ @override
+ void initState() {
+     super.initState();     
+    _suggestions =InfoManager.instance.filteredRoomLocateInfo;
+    InfoManager.instance.roomLocateInfoList.setCurrentIndex(0);
+   }
     @override
     void dispose() {
       super.dispose();
     }
 
 
+
+
   Widget _buildSuggestions() {
-  _suggestions.clear();
-  _suggestions.addAll(InfoManager.instance.filteredRoomLocateInfo);
     return ListView.builder(
       itemCount: _suggestions.length * 2,
       padding: const EdgeInsets.all(16.0),      
@@ -48,7 +50,7 @@ class _LocatePageState extends State<LocatePage> {
     return ListTile(
        onTap: () => _onTapItem(context, index),
        title: Text(
-       _suggestions[index].infoName + InfoManager.instance.houseInfoList.getCurrentItem().infoName,
+       _suggestions[index].name,
         style: _biggerFont,
       ),
     );
